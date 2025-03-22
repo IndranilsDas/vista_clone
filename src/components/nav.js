@@ -4,6 +4,7 @@ import { Prompt } from 'next/font/google';
 import { CiBellOn } from "react-icons/ci";
 import { FaUserCircle } from "react-icons/fa";
 import { LuPhoneCall } from "react-icons/lu";
+import Tempnav from './tempnav';
 
 const prompt = Prompt({
   subsets: ['latin'],
@@ -31,11 +32,30 @@ export default function Nav() {
 
   return (
     <div className={`${prompt.className}`}>
+      
       <nav>
-        <div></div>
-        <div className={`fixed w-full top-0 z-50 transition duration-300 flex flex-wrap items-center justify-center md:justify-end gap-4 px-6 py-4 
+        
+        <div className={`fixed w-full top-0 z-50 transition duration-300 
           ${Scrolled ? 'backdrop-blur-md shadow-xl' : 'bg-transparent'}`}>
-          
+          <nav>
+        <div className="relative flex items-center justify-between w-full bg-gradient-to-r from-blue-300 to-orange-300 py-2 px-4">
+          {/* Promo text */}
+          <span className="text-black">
+            FLAT 15% OFF on your next escape. Use code: WIN15
+          </span>
+
+          {/* Close Button (right-most position) */}
+          <button
+            
+            className="text-white font-bold"
+          >
+            ✕
+          </button>
+        </div>
+      </nav>
+      <div className='flex flex-wrap items-center justify-center md:justify-end gap-4 px-6 py-4 '>
+
+      
           <button className={`text-sm md:text-base ${Scrolled ? 'text-black' : 'text-white'} hover:text-orange-300 duration-300`}>
             Explore
           </button>
@@ -68,6 +88,7 @@ export default function Nav() {
             <FaUserCircle className={`h-8 w-8 cursor-pointer hover:text-orange-300 duration-300 ${Scrolled ? 'text-black' : 'text-white'}`} />
           </button>
           
+        </div>
         </div>
       </nav>
     </div>
