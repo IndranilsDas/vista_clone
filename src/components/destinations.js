@@ -53,7 +53,7 @@ export default function Destinations() {
             </div>
             <div className='flex flex-col border'>
             <div className=' grid grid-rows-2 grid-flow-col overflow-x-auto no-scroller'>
-            {destinations.map((item,index)=>(<div key={index} className='flex flex-col h-30 w-30 m-6 p-4 items-center justify-center'>
+            {destinations.map((item,index)=>(<div key={index} className='flex flex-col h-30 w-30 m-6 p-4 rounded hover:bg-orange-200 cursor-pointer transition duration-300 items-center justify-center'>
             <img src={item.image} className=''></img>
              <h1 className='text-gray-700 text-lg'>{item.place}</h1>
             </div>))}

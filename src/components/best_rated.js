@@ -1,7 +1,9 @@
 'use client';
 
 import React, { useRef, useState } from 'react';
+import { CiStar } from "react-icons/ci";
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { CiHeart } from "react-icons/ci";
 import { Prompt } from 'next/font/google';
 
 const prompt = Prompt({
@@ -139,7 +141,7 @@ export default function BestRated() {
 
                 {/* Favorite Button */}
                 <button className="absolute top-2 right-2 bg-white rounded-full p-1 shadow-md">
-                  ♡
+                  <CiHeart className='text-black'/>
                 </button>
 
                 {/* ✅ Fix: Best Rated Badge Now at the Bottom */}
