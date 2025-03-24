@@ -58,7 +58,7 @@ export default function CollectionCarousel() {
                 bg-white 
                 rounded-lg 
                 shadow-lg 
-                overflow-hidden
+                overflow-clip
               "
             >
               {/* Card Image */}

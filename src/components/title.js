@@ -1,8 +1,7 @@
-"use client";
-import { useState } from 'react';
+'use client';
+import { useState, useEffect } from 'react';
 import { Prompt, Aladin } from 'next/font/google';
 
-// Font configurations
 const prompt = Prompt({
   subsets: ['latin'],
   weight: ['200', '300', '400', '600', '800'],
@@ -13,10 +12,6 @@ const aladin = Aladin({
   weight: '400',
 });
 
-// Slides data:
-// - First slide remains unchanged.
-// - Second slide now uses an economy/easy booking message.
-// - Third and fourth slides remain as defined.
 const slides = [
   {
     image: "/images/interior_living_room.jpg",
@@ -42,29 +37,30 @@ const slides = [
 
 export default function Titlescreen() {
   const [current, setCurrent] = useState(0);
+  const [isUnder850, setIsUnder850] = useState(false);
 
-  // Move to the next slide
+  // Check viewport size and update form visibility for 850px threshold
+  useEffect(() => {
+    const handleResize = () => {
+      setIsUnder850(window.innerWidth < 860);
+    };
+    window.addEventListener("resize", handleResize);
+    // Check on mount
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const nextSlide = () => {
     setCurrent((prev) => (prev + 1) % slides.length);
   };
 
-  // Move to the previous slide
   const prevSlide = () => {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   };
 
   return (
     <div
-      className={`
-        ${prompt.className} 
-        relative 
-        h-[85vh] 
-        overflow-y-visible 
-        overflow-x-clip 
-        flex 
-        flex-col 
-        justify-center
-      `}
+      className={`${prompt.className} relative h-[85vh] overflow-y-visible overflow-x-clip flex flex-col justify-center`}
     >
       {/* Slides Wrapper */}
       <div
@@ -96,7 +92,7 @@ export default function Titlescreen() {
         ❯
       </button>
 
-      {/* Overlay Text (changes based on active slide) */}
+      {/* Overlay Text */}
       <div className="absolute inset-0 bg-black/50 flex flex-col justify-center items-center text-white text-center z-20">
         <h1 className={`${aladin.className} text-8xl`}>
           {slides[current].title}
@@ -106,70 +102,114 @@ export default function Titlescreen() {
         </button>
       </div>
 
-      {/* Inquiry Form */}
-      <div
-        className={`
-          absolute bottom-0 left-1/2 translate-y-1/2 -translate-x-1/2 
-          w-[75vw] overflow-y-auto 
-          rounded-xl bg-white shadow-md
-          transition-transform duration-500 ease-in-out 
-          z-40 text-black
-        `}
-      >
-        <div className="relative flex flex-wrap items-center justify-between p-4 gap-2">
-          {/* Location Field */}
-          <div className="flex flex-col min-w-[180px]">
-            <label className="text-sm font-semibold mb-1">
-              Location / Villas / Landmark
-            </label>
-            <input
-              type="text"
-              placeholder="Where To?"
-              className="p-2 border border-gray-300 rounded"
-            />
-          </div>
+      {/* Conditional Inquiry Form */}
+      {isUnder850 ? <MobileInquiryForm /> : <DesktopInquiryForm />}
+    </div>
+  );
+}
 
-          {/* Check-in */}
-          <div className="flex flex-col min-w-[120px]">
-            <label className="text-sm font-semibold mb-1">Check-in</label>
-            <input
-              type="date"
-              className="p-2 border border-gray-300 rounded"
-            />
-          </div>
-
-          {/* Check-out */}
-          <div className="flex flex-col min-w-[120px]">
-            <label className="text-sm font-semibold mb-1">Check-out</label>
-            <input
-              type="date"
-              className="p-2 border border-gray-300 rounded"
-            />
-          </div>
-
-          {/* Guests */}
-          <div className="flex flex-col min-w-[150px]">
-            <label className="text-sm font-semibold mb-1">Guests</label>
-            <input
-              type="text"
-              placeholder="2 Guests, 1+ Rooms"
-              className="p-2 border border-gray-300 rounded"
-            />
-          </div>
-
-          {/* SEARCH Button */}
-          <button className="mt-3 md:mt-0 px-6 py-2 bg-black text-white rounded hover:bg-gray-800">
-            SEARCH
-          </button>
+function MobileInquiryForm() {
+  return (
+    <div
+      className="
+        absolute bottom-4 left-1/2 transform -translate-x-1/2 
+        w-[90vw] p-2 rounded-lg bg-white shadow-md 
+        transition-transform duration-500 ease-in-out 
+        z-40 text-black
+      "
+    >
+      <div className="flex flex-col gap-2">
+        <input
+          type="text"
+          placeholder="Location / Villas / Landmark"
+          className="p-2 border border-gray-300 rounded"
+        />
+        <div className="flex gap-2">
+          <input
+            type="date"
+            className="p-2 border border-gray-300 rounded w-1/2"
+          />
+          <input
+            type="date"
+            className="p-2 border border-gray-300 rounded w-1/2"
+          />
         </div>
-        <div className="flex flex-wrap justify-between items-center bg-amber-100 px-4 py-2 text-sm text-gray-700">
-          <span>
-            Finding your ideal vacation spot should be easy! We're here to help.
-          </span>
-          <a href="#" className="text-blue-600 hover:underline">
-            Request Callback
-          </a>
+        <input
+          type="text"
+          placeholder="Guests"
+          className="p-2 border border-gray-300 rounded"
+        />
+        <button className="px-4 py-2 bg-black text-white rounded">
+          SEARCH
+        </button>
+      </div>
+    </div>
+  );
+}
+
+function DesktopInquiryForm() {
+  return (
+    <div
+      className="
+        absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2 
+        w-[75vw] p-4 rounded-xl bg-white shadow-md 
+        transition-transform duration-500 ease-in-out 
+        z-40 text-black
+      "
+    >
+      <div className="flex flex-wrap items-center justify-between p-4 gap-2">
+        {/* Location Field */}
+        <div className="flex flex-col min-w-[180px]">
+          <label className="text-sm font-semibold mb-1">
+            Location / Villas / Landmark
+          </label>
+          <input
+            type="text"
+            placeholder="Where To?"
+            className="p-2 border border-gray-300 rounded"
+          />
         </div>
+
+        {/* Check-in */}
+        <div className="flex flex-col min-w-[120px]">
+          <label className="text-sm font-semibold mb-1">Check-in</label>
+          <input
+            type="date"
+            className="p-2 border border-gray-300 rounded"
+          />
+        </div>
+
+        {/* Check-out */}
+        <div className="flex flex-col min-w-[120px]">
+          <label className="text-sm font-semibold mb-1">Check-out</label>
+          <input
+            type="date"
+            className="p-2 border border-gray-300 rounded"
+          />
+        </div>
+
+        {/* Guests */}
+        <div className="flex flex-col min-w-[150px]">
+          <label className="text-sm font-semibold mb-1">Guests</label>
+          <input
+            type="text"
+            placeholder="2 Guests, 1+ Rooms"
+            className="p-2 border border-gray-300 rounded"
+          />
+        </div>
+
+        {/* SEARCH Button */}
+        <button className="mt-3 md:mt-0 px-6 py-2 bg-black text-white rounded hover:bg-gray-800">
+          SEARCH
+        </button>
+      </div>
+      <div className="flex flex-wrap justify-between items-center bg-amber-100 px-4 py-2 text-sm text-gray-700">
+        <span>
+          Finding your ideal vacation spot should be easy! We're here to help.
+        </span>
+        <a href="#" className="text-blue-600 hover:underline">
+          Request Callback
+        </a>
       </div>
     </div>
   );

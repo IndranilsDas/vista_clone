@@ -118,7 +118,7 @@ export default function TrendingSection() {
         {/* Cards */}
         <div
           ref={scrollRef}
-          className="flex justify-evenly m-auto gap-4 overflow-hidden py-2 transition duration-300 scroll-smooth no-scrollbar mx-16"
+          className="flex justify-evenly m-auto gap-4 overflow-clip py-2 transition duration-300 scroll-smooth no-scrollbar mx-16"
         >
           {destinations.map((item, index) => (
             <div

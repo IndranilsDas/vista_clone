@@ -21,7 +21,7 @@ export default function Landing() {
       <Destinations/>
       <Offers/>
       <TrendingSection/>
-      <Banner1/>
+      {/*<Banner1/>*/}
       <CollectionCarousel/>
       <Features/>
       <BestRated/>

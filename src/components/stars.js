@@ -95,12 +95,12 @@ export default function StayLikeStars() {
         {/* Cards */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-hidden scroll-smooth py-2 no-scrollbar mx-16"
+          className="flex gap-4 overflow-clip scroll-smooth py-2 no-scrollbar mx-16"
         >
           {listings.map((listing, index) => (
             <div
               key={index}
-              className="flex flex-col min-w-[220px] max-w-[220px] border rounded-lg shadow-xl ring ring-gray-300 bg-white overflow-hidden"
+              className="flex flex-col min-w-[220px] max-w-[220px] border rounded-lg shadow-xl ring ring-gray-300 bg-white overflow-clip"
             >
               {/* Image */}
               <div className="relative">

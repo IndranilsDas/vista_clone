@@ -91,7 +91,7 @@ export default function Offers() {
         <h1 className="text-3xl text-black py-4 font-semibold">Offers for You</h1>
 
         {/* Tabs */}
-        <div className="flex gap-4 mb-4">
+        <div className="flex gap-4 mb-4 overflow-x-auto">
           {tabs.map((item, index) => (
             <button
               key={index}

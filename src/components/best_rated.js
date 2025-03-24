@@ -119,7 +119,7 @@ export default function BestRated() {
         {/* Cards */}
         <div
           ref={scrollRef}
-          className="flex gap-4 overflow-hidden py-2 scroll-smooth no-scrollbar px-10"
+          className="flex gap-4 overflow-clip py-2 scroll-smooth no-scrollbar px-10"
         >
           {filteredListings.map((listing, index) => (
             <div

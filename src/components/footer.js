@@ -70,7 +70,7 @@ export default function Footer() {
               className={`px-4 py-2 text-base md:text-lg rounded-t-lg ${
                 activeTab === tab
                   ? 'bg-zinc-700 text-white font-semibold'
-                  : 'bg-zinc-500 text-gray-300'
+                  : null
               }`}
               onClick={() => setActiveTab(tab)}
             >
